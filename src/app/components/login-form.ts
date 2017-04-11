@@ -36,7 +36,7 @@ export class LoginFormComponent {
   @Input() error = null;  
   @Output() login = new EventEmitter<Credentials>();
 
-  credentials: Credentials = {email: "", password: ""};  
+  credentials: Credentials = {email: "test@test.com", password: "password123"};  
 
   private getMessage() {
     for (var key in this.error) {

@@ -1,6 +1,8 @@
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/skip';
 import 'rxjs/add/operator/takeUntil';
@@ -37,17 +39,30 @@ import * as account from '../actions/account';
 export class AccountEffects {
 
   @Effect()
-  $login$: Observable<Action> = this.actions$
+  login$: Observable<Action> = this.actions$
     .ofType(account.ActionTypes.LOGIN)
     .map(toPayload)
     .switchMap(credentials => {      
+      return this.accountService.login(credentials)
+    }).concatMap(
+      accountResult => {
+        return [
+          new account.CompleteLoginAction(accountResult),
+          go('/')
+        ]
+      }
+    ).catch(function(error) {        
+      return of(new account.AuthenticationErrorAction(error.json()))
+    })
 
-    return this.accountService.login(credentials)      
+    constructor(private actions$: Actions, private accountService: AccountService) { }
+}
+
+
+/**
+ *      
       .map(accountResult => new account.CompleteLoginAction(accountResult))    
       .catch(function(error) {        
         return of(new account.AuthenticationErrorAction(error.json()))
       });
-    });
-
-    constructor(private actions$: Actions, private accountService: AccountService) { }
-}
+ */

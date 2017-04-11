@@ -36,7 +36,7 @@ export function reducer(state = initialState, action: account.Actions): State {
       });
     }
 
-    case account.ActionTypes.LOGIN_COMPLETE: {      
+    case account.ActionTypes.COMPLETE_LOGIN: {  
       return Object.assign({}, state, {
         authenticating: false,
         loggedIn: true

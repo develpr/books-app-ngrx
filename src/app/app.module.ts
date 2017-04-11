@@ -4,6 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 
+//guards
+import { LoggedInGuard } from './guards/logged-in';
+
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RouterStoreModule } from '@ngrx/router-store';
@@ -78,7 +81,8 @@ import { reducer } from './reducers';
   providers: [    
     AccountService,
     ConfigurationService,
-    HttpClient
+    HttpClient,
+    LoggedInGuard
   ],
   bootstrap: [
     AppComponent

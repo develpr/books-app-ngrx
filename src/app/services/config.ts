@@ -40,4 +40,8 @@ export class ConfigurationService {
         return localStorage.getItem('token');
     }
 
+    public hasAuthToken() : boolean {
+        return localStorage.getItem('token') ? true : false;
+    }
+
 }
