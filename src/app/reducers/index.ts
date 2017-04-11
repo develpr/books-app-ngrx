@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { ActionReducer } from '@ngrx/store';
+import * as fromRouter from '@ngrx/router-store';
 import { environment } from '../../environments/environment';
 
 /**
@@ -56,7 +57,8 @@ export interface State {
  * the result from right to left.
  */
 const reducers = {
-  account: fromAccount.reducer
+  account: fromAccount.reducer,
+  router: fromRouter.routerReducer
 };
 
 const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);

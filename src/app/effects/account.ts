@@ -10,6 +10,7 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
+import { go } from '@ngrx/router-store';
 
 import { AccountService } from '../services/account';
 import * as account from '../actions/account';
@@ -41,11 +42,8 @@ export class AccountEffects {
     .map(toPayload)
     .switchMap(credentials => {      
 
-    //   const nextSearch$ = this.actions$.ofType(book.ActionTypes.SEARCH).skip(1);
-
-    return this.accountService.login(credentials)
-      // .takeUntil(nextSearch$)
-      .map(accountResult => new account.LoggedInAction(accountResult))
+    return this.accountService.login(credentials)      
+      .map(accountResult => new account.CompleteLoginAction(accountResult))    
       .catch(function(error) {        
         return of(new account.AuthenticationErrorAction(error.json()))
       });

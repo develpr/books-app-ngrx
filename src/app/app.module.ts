@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { RouterStoreModule } from '@ngrx/router-store';
 
 import { ComponentsModule } from './components';
 // import { Http, Headers, RequestOptions } from '@angular/http';
@@ -44,6 +45,12 @@ import { reducer } from './reducers';
      * based application.
      */
     StoreModule.provideStore(reducer),
+
+    /**
+     * @ngrx/router-store keeps router state up-to-date in the store and uses
+     * the store as the single source of truth for the router's state.
+     */
+    RouterStoreModule.connectRouter(),
 
 
     EffectsModule.run(AccountEffects),

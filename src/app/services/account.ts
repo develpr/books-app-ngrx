@@ -21,7 +21,6 @@ export class AccountService {
         private config:ConfigurationService
     ) {}
 
-
     public isLoggedIn() {
         let token = this.config.getAuthToken();
 
@@ -35,7 +34,12 @@ export class AccountService {
     public login(credentials:Credentials): Observable<Account> {        
         let self = this;
         return this.httpClient.post("oauth/tokens", credentials)
-        .map(function(res) { return res.json() || []})
+        .map(function(res) { 
+            const result = res.json();
+            const token = result && result.token ? result.token : null;
+            self.config.setAuthToken(token)
+            return result || null;
+        })
     }
 
     public logout() {

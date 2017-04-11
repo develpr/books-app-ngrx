@@ -13,7 +13,7 @@ import { type } from '../utils';
  */
 export const ActionTypes = {
   LOGIN:           type('[Account] Login'),
-  LOGIN_COMPLETE:  type('[Account] Login Complete'),
+  COMPLETE_LOGIN:  type('[Account] Login Complete'),
   LOGOUT:          type('[Account] Logout'),
   UPDATE:          type('[Account] Update'),
   LOGIN_ERROR:     type('[Account] Login Error'),
@@ -33,8 +33,8 @@ export class LoginAction implements Action {
   constructor(public payload: Credentials) { }
 }
 
-export class LoggedInAction implements Action {
-  type = ActionTypes.LOGIN_COMPLETE;
+export class CompleteLoginAction implements Action {
+  type = ActionTypes.COMPLETE_LOGIN;
 
   constructor(public payload: Account) { }
 }
@@ -65,5 +65,5 @@ export type Actions
   = LoginAction
   | LogoutAction
   | UpdateAction
-  | LoggedInAction
+  | CompleteLoginAction
   | AuthenticationErrorAction;
