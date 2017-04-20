@@ -38,18 +38,14 @@ export class LoginFormComponent {
 
   credentials: Credentials = {email: "test@test.com", password: "password123"};  
 
-  private getMessage() {
-    for (var key in this.error) {
-      if (this.error.hasOwnProperty(key)) {
-        console.info(key + " -> " + this.error[key]);
-      }
-    }
+  private getMessage() {    
     if(this.error && this.error.email){      
       return this.error.email;
     }
   }
 
-  private handleLogin(form: NgForm) {              
+  private handleLogin(form: NgForm) { 
+    console.info("logging in again");              
     this.login.emit(form.value);
   }
 }

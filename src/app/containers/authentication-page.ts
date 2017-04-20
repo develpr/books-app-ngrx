@@ -30,7 +30,7 @@ export class AuthenticationPageComponent {
         this.error$ = store.select(fromRoot.getError);            
     }
 
-    login(credentials: Credentials) {
+    login(credentials: Credentials) {        
         this.store.dispatch(new account.LoginAction(credentials));
     }
 

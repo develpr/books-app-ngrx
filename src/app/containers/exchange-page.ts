@@ -5,6 +5,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>Exhange Page</div>
+    <configuration-text></configuration-text>
   `
 })
 export class ExchangePageComponent { }

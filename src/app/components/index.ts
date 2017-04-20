@@ -4,11 +4,13 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { LoginFormComponent } from './login-form';
+import { ConfigurationTextComponent } from './configuration-text';
 import { PipesModule } from '../pipes';
 
 
 export const COMPONENTS = [
-  LoginFormComponent
+  LoginFormComponent,
+  ConfigurationTextComponent
 ];
 
 

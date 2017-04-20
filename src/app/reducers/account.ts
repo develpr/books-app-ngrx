@@ -20,9 +20,10 @@ export function reducer(state = initialState, action: account.Actions): State {
   switch (action.type) {
     case account.ActionTypes.LOGIN: {
       const credentials = action.payload;
-      
+      console.info("reducer called for login");
       return Object.assign({}, state, {
-        authenticating: true
+        authenticating: true,
+        error: null
       });
     }
 

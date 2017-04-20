@@ -38,24 +38,42 @@ import * as account from '../actions/account';
 @Injectable()
 export class AccountEffects {
 
+  // @Effect()
+  // login$: Observable<Action> = this.actions$
+  //   .ofType(account.ActionTypes.LOGIN)
+  //   .map(toPayload)
+  //   .switchMap(credentials => {      
+  //     return this.accountService.login(credentials)
+  //   }).concatMap(
+  //     accountResult => {
+  //       return [
+  //         new account.CompleteLoginAction(accountResult),
+  //         go('/')
+  //       ]
+  //     }
+  //   ).catch(function(error) {        
+  //     return of(new account.AuthenticationErrorAction(error.json()))
+  //   })
+  
   @Effect()
   login$: Observable<Action> = this.actions$
     .ofType(account.ActionTypes.LOGIN)
     .map(toPayload)
-    .switchMap(credentials => {      
+    .switchMap(credentials => {
       return this.accountService.login(credentials)
-    }).concatMap(
-      accountResult => {
-        return [
-          new account.CompleteLoginAction(accountResult),
-          go('/')
-        ]
-      }
-    ).catch(function(error) {        
-      return of(new account.AuthenticationErrorAction(error.json()))
+        .concatMap(
+        accountResult => {
+          return [
+            new account.CompleteLoginAction(accountResult),
+            go('/')
+          ]
+        }
+        ).catch(function (error) {
+          return of(new account.AuthenticationErrorAction(error.json()))
+        })
     })
 
-    constructor(private actions$: Actions, private accountService: AccountService) { }
+  constructor(private actions$: Actions, private accountService: AccountService) { }
 }
 
 
