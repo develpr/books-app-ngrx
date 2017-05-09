@@ -17,6 +17,8 @@ export const ActionTypes = {
   LOGOUT:          type('[Account] Logout'),
   UPDATE:          type('[Account] Update'),
   LOGIN_ERROR:     type('[Account] Login Error'),
+  FETCH_ACCOUNT:   type('[Account] Fetch Account'),
+  SET_ACCOUNT:     type('[Account] Set Account'),
 };
 
 
@@ -35,6 +37,18 @@ export class LoginAction implements Action {
 
 export class CompleteLoginAction implements Action {
   type = ActionTypes.COMPLETE_LOGIN;
+
+  constructor(public payload: string) { }
+}
+
+export class FetchAccountAction implements Action {
+  type = ActionTypes.FETCH_ACCOUNT;
+
+  constructor() { }
+}
+
+export class SetAccountAction implements Action {
+  type = ActionTypes.SET_ACCOUNT;
 
   constructor(public payload: Account) { }
 }

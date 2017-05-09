@@ -31,7 +31,7 @@ export class AccountService {
         return false;
     }
 
-    public login(credentials:Credentials): Observable<Account> {                
+    public login(credentials:Credentials): Observable<string> {                
         let self = this;
         return this.httpClient.post("oauth/tokens", credentials)
         .map(function(res) { 
@@ -43,18 +43,31 @@ export class AccountService {
     }
 
     public logout() {
-        console.info("account logout..");
         let self = this;
         return this.httpClient.delete("oauth/tokens/mine");
+    }
+
+    public updateAccount(account: Account): Observable<Account> {
+
+        console.info("updatedAccount in service called with account", account);
+        
+        let self = this;
+        return this.httpClient.put("users/me", account)
+        .map(function(res) { 
+            return self.transform(res.json());                      
+        })
     }
 
     /*
     * Load the profile of the currently authorized user
     */
-    public getAccount() {        
+    public getAccount(): Observable<Account> {       
+        const self = this; 
         return this.httpClient.get(
             this.serviceEndpoint
-        );
+        ).map(function(res){
+            return self.transform(res.json());
+        });
     }
     /*
     * Normalize results to known model for templating
@@ -64,10 +77,13 @@ export class AccountService {
         * Build an account from the defined model
         */
         let account: Account = {
-            id: response.id,
             email: response.email,
-            firstname: response.givenName,
-            lastname: response.familyName
+            firstname: response.first_name,
+            lastname: response.last_name
+        }
+
+        if(response.id) {
+            account.id = response.id;
         }
 
         return account;

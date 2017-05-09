@@ -1,6 +1,8 @@
-export interface Account {
-  id: string;
+export interface Account {  
+  id?: number;
   firstname: string;
   lastname: string;
   email: string;
+  office?: any;
+  address?: any;
 }

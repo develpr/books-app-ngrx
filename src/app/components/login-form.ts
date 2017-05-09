@@ -44,8 +44,7 @@ export class LoginFormComponent {
     }
   }
 
-  private handleLogin(form: NgForm) { 
-    console.info("logging in again");              
+  private handleLogin(form: NgForm) {               
     this.login.emit(form.value);
   }
 }

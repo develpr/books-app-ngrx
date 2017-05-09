@@ -4,13 +4,21 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { LoginFormComponent } from './login-form';
-import { ConfigurationTextComponent } from './configuration-text';
+import { AccountConfigurationTextComponent } from './account-configuration-text';
+import { ExchangeConfigurationTextComponent } from './exchange-configuration-text';
 import { PipesModule } from '../pipes';
+
+import { ContenteditableModel } from '../directives/contenteditable-model';
+import { HighlightDirective } from '../directives/highlight';
+
 
 
 export const COMPONENTS = [
   LoginFormComponent,
-  ConfigurationTextComponent
+  AccountConfigurationTextComponent,
+  ExchangeConfigurationTextComponent,
+  ContenteditableModel,
+  HighlightDirective
 ];
 
 

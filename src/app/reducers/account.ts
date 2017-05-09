@@ -6,12 +6,16 @@ export interface State {
   account: Account,
   loggedIn: boolean,
   authenticating: boolean,
+  loading: boolean,
+  loaded: boolean,
   error: any,
 };
 
 const initialState: State = {
   account: null,
   loggedIn: false,
+  loading: false,
+  loaded: false,
   authenticating: false,
   error: null
 };
@@ -49,19 +53,42 @@ export function reducer(state = initialState, action: account.Actions): State {
         account:null,
         loggedIn: false,
         authenticating: false,
+        loading: false,
+        loaded: false,
         error:null
       };
     }
 
     case account.ActionTypes.UPDATE: {
-      const account = action.payload;
-
+      let account = action.payload; 
+      console.info("update reducer called with", account);
       return {
         account: account,
         loggedIn: account,
         authenticating: false,
+        loading: false,
+        loaded: true,
         error:null
       };
+    }
+
+    case account.ActionTypes.FETCH_ACCOUNT: {
+      const account = action.payload;
+
+      //todo: set some sort of global loading state?
+      return Object.assign({}, state);
+    }
+
+    case account.ActionTypes.SET_ACCOUNT: {
+      const account = action.payload;
+      return Object.assign({}, state, {
+          account: account,
+          loggedIn: true,
+          loaded: true,
+          loading: false,
+          authenticating: false,
+          error:null
+      });
     }
 
     default: {

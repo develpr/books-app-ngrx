@@ -17,6 +17,8 @@ import { go } from '@ngrx/router-store';
 import { AccountService } from '../services/account';
 import * as account from '../actions/account';
 
+import { Account } from '../models/account';
+
 
 /**
  * Effects offer a way to isolate and easily test side-effects within your
@@ -65,6 +67,7 @@ export class AccountEffects {
         accountResult => {
           return [
             new account.CompleteLoginAction(accountResult),
+            new account.FetchAccountAction(),
             go('/')
           ]
         }
@@ -73,7 +76,43 @@ export class AccountEffects {
         })
     })
 
+  @Effect()
+  fetchAccount$: Observable<Action> = this.actions$
+    .ofType(account.ActionTypes.FETCH_ACCOUNT)
+    .map(toPayload)
+    .switchMap(options => {
+      return this.accountService.getAccount()
+        .concatMap(
+        accountResult => {          
+          return [
+            new account.SetAccountAction(accountResult)            
+          ]
+        }
+        ).catch(function (error) {          
+          return of(new account.AuthenticationErrorAction(error.json()))
+        })
+    })
+
+  @Effect()
+  updateAccount$: Observable<Action> = this.actions$
+    .ofType(account.ActionTypes.UPDATE)
+    .debounceTime(1000)
+    .map(toPayload)
+    .switchMap(updatedAccount => {
+      return this.accountService.updateAccount(updatedAccount)
+        .concatMap(
+        accountResult => {          
+          return [
+            new account.SetAccountAction(accountResult)            
+          ]
+        }
+        ).catch(function (error) {          
+          return of(new account.AuthenticationErrorAction(error.json()))
+        })
+    })
+
   constructor(private actions$: Actions, private accountService: AccountService) { }
+
 }
 
 

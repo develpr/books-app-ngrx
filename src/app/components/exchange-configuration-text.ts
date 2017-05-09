@@ -7,23 +7,12 @@ import { Component, Output, Input, EventEmitter } from '@angular/core';
 
 
 @Component({
-  selector: 'configuration-text',
+  selector: 'exchange-configuration-text',
   template: `
     <div class="configuration-text">
-    <p>
-    Hello! My name is 
-    <span class="text-input" contenteditable="true">test</span>
-    &nbsp;&nbsp;(last name 
-    <span class="text-input" contenteditable="true"></span>
-    ) and I really enjoy reading 
-    <select><option value="1"></option><option value="2">adventure</option><option value="3">non-fiction</option></select> books<sup><a href="#">?</a></sup>
-    . I think that I 
-    <select><option value="2">will not</option><option value="3">will</option></select>
-    participate in the next ID book exchange, which takes place May 18th.
-    <p>
-    <p>
-    
-    <p>
+    <p>I think that I 
+    <select><option value="2">will not</option><option value="3">will</option></select>participate in the next ID book exchange, which takes place May 18th.
+    </p>
     </div>
   `,
   styles: [`    
@@ -63,7 +52,7 @@ import { Component, Output, Input, EventEmitter } from '@angular/core';
     }
   `]
 })
-export class ConfigurationTextComponent {  
+export class ExchangeConfigurationTextComponent {  
   @Input() account = null;  
   @Input() nextExchange = null;  
   @Output() login = new EventEmitter<Credentials>();
