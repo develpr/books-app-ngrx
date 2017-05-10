@@ -12,6 +12,7 @@ import { Account } from '../models/account';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>Exhange Page</div>
+    <div (click)="logout()">logout</div>
     <account-configuration-text [account]="account$ | async" (accountUpdate)="updateAccount($event)"></account-configuration-text>
   `
 })
@@ -21,6 +22,8 @@ export class ExchangePageComponent {
   error$: Observable<Response>;
 
   constructor(private store: Store<fromRoot.State>) {
+    console.info("fetching account in constructor");
+    
     this.store.dispatch(new account.FetchAccountAction);
     this.account$ = store.select(fromRoot.getAccount);    
   }
@@ -28,6 +31,10 @@ export class ExchangePageComponent {
   updateAccount(updatedAccount: Account) {
     console.info("container updateAccout", updatedAccount);
     this.store.dispatch(new account.UpdateAction(updatedAccount));
+  }
+
+  logout() {
+    this.store.dispatch(new account.LogoutAction());
   }
 
 }

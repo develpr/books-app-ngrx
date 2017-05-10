@@ -37,14 +37,19 @@ export class AccountService {
         .map(function(res) { 
             const result = res.json();
             const token = result && result.token ? result.token : null;
-            self.config.setAuthToken(token)
+            self.config.setAuthToken(token);
+            console.info(self.config.getAuthToken());
+            console.info("done setting token..");
             return result || null;
         })
     }
 
     public logout() {
         let self = this;
-        return this.httpClient.delete("oauth/tokens/mine");
+        return this.httpClient.delete("oauth/tokens/mine").map(function(res) {             
+            self.config.clearAuthToken();
+            return null;
+        })
     }
 
     public updateAccount(account: Account): Observable<Account> {

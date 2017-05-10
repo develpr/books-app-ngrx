@@ -1,7 +1,6 @@
 import * as account from '../actions/account';
 import { Account } from '../models/account';
 
-
 export interface State {
   account: Account,
   loggedIn: boolean,
@@ -24,7 +23,6 @@ export function reducer(state = initialState, action: account.Actions): State {
   switch (action.type) {
     case account.ActionTypes.LOGIN: {
       const credentials = action.payload;
-      console.info("reducer called for login");
       return Object.assign({}, state, {
         authenticating: true,
         error: null
@@ -60,7 +58,7 @@ export function reducer(state = initialState, action: account.Actions): State {
     }
 
     case account.ActionTypes.UPDATE: {
-      let account = action.payload; 
+      let account = action.payload;
       console.info("update reducer called with", account);
       return {
         account: account,

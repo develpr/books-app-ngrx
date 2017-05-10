@@ -6,7 +6,6 @@ import { ConfigurationService } from '../services/config';
 @Injectable()
 export class HttpClient {
     
-    private headers: Headers = new Headers();
     /*
     * Injecting services for use later
     */ 
@@ -14,11 +13,7 @@ export class HttpClient {
         private http: Http,
         private config: ConfigurationService
     ) {
-        this.headers.append('Content-Type', 'application/json');
-        this.headers.append('Accept', 'application/json');
-        if( this.config.getAuthToken() ) {
-            this.headers.append("Authorization", "Bearer " + this.config.getAuthToken());
-        }
+        
     }
 
     get(url: string, options?: RequestOptions) {
@@ -51,12 +46,20 @@ export class HttpClient {
 
     private getRequestOptions() : RequestOptions {
 
+        let headers  = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Accept', 'application/json');
+        if( this.config.getAuthToken() ) {
+            headers.append("Authorization", "Bearer " + this.config.getAuthToken());
+        }
+
         var requestOptions = new RequestOptions({
-            headers: this.headers,
+            headers: headers,
             withCredentials: true
         });
 
         return requestOptions;
+        
     }
 
     // /*

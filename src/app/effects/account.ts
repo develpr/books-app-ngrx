@@ -65,10 +65,28 @@ export class AccountEffects {
       return this.accountService.login(credentials)
         .concatMap(
         accountResult => {
-          return [
-            new account.CompleteLoginAction(accountResult),
+          console.info("doing this thing...");
+          return [            
+            new account.CompleteLoginAction(accountResult),            
             new account.FetchAccountAction(),
             go('/')
+          ]
+        }
+        ).catch(function (error) {
+          return of(new account.AuthenticationErrorAction(error.json()))
+        })
+    })
+
+  @Effect()
+  logout$: Observable<Action> = this.actions$
+    .ofType(account.ActionTypes.LOGOUT)
+    .map(toPayload)
+    .switchMap(credentials => {
+      return this.accountService.logout()
+        .concatMap(
+        result => {
+          return [
+            go('/authenticate')
           ]
         }
         ).catch(function (error) {

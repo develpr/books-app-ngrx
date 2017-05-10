@@ -62,7 +62,7 @@ export class AuthenticationErrorAction implements Action {
 export class LogoutAction implements Action {
   type = ActionTypes.LOGOUT;
 
-  constructor(public payload: any) { }
+  constructor(public payload?: any) { }
 }
 
 export class UpdateAction implements Action {
