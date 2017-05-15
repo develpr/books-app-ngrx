@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 
 //guards
 import { LoggedInGuard } from './guards/logged-in';
+import { AccountLoadedGuard } from './guards/account-loaded';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -82,7 +83,8 @@ import { reducer } from './reducers';
     AccountService,
     ConfigurationService,
     HttpClient,
-    LoggedInGuard
+    LoggedInGuard,
+    AccountLoadedGuard
   ],
   bootstrap: [
     AppComponent

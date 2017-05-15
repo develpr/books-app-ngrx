@@ -16,7 +16,14 @@ import { Account } from '../models/account';
     &nbsp;&nbsp;(last name 
     <span class="text-input" contenteditable="true" (blur)="updateAccount('lastname', $event.target.innerHTML)" [contenteditableModel]="account.lastname"></span>    
     ) and I really enjoy reading 
-    <select><option value="1"></option><option value="2">adventure</option><option value="3">non-fiction</option></select> books<sup><a href="#">?</a></sup>
+    <select (change)="updateAccount('favorite_book_type', $event.target.value)">
+      <option value=""></option>
+      <option *ngFor="let bookType of account.bookTypes" 
+          [value]="bookType.id" 
+          [attr.selected]="account.favoriteBookType && account.favoriteBookType.id==bookType.id ? true : null">
+        {{bookType.name}}
+      </option>
+    </select> books<sup><a href="#">?</a></sup>
     .  
     </div>
   `,
@@ -64,7 +71,7 @@ export class AccountConfigurationTextComponent {
 
   
 
-  private updateAccount(property, eventValue) {          
+  private updateAccount(property, eventValue) {           
     let updatedAccount = Object.assign({}, this.account);    
     updatedAccount[property] = eventValue;    
     this.accountUpdate.emit(updatedAccount);

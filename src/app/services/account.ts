@@ -37,9 +37,7 @@ export class AccountService {
         .map(function(res) { 
             const result = res.json();
             const token = result && result.token ? result.token : null;
-            self.config.setAuthToken(token);
-            console.info(self.config.getAuthToken());
-            console.info("done setting token..");
+            self.config.setAuthToken(token);            
             return result || null;
         })
     }
@@ -54,8 +52,6 @@ export class AccountService {
 
     public updateAccount(account: Account): Observable<Account> {
 
-        console.info("updatedAccount in service called with account", account);
-        
         let self = this;
         return this.httpClient.put("users/me", account)
         .map(function(res) { 
@@ -84,7 +80,9 @@ export class AccountService {
         let account: Account = {
             email: response.email,
             firstname: response.first_name,
-            lastname: response.last_name
+            lastname: response.last_name,
+            favoriteBookType: response.favorite_book_type,
+            bookTypes: response.book_types
         }
 
         if(response.id) {

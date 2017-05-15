@@ -21,15 +21,12 @@ export class ExchangePageComponent {
   account$: Observable<Account>;
   error$: Observable<Response>;
 
-  constructor(private store: Store<fromRoot.State>) {
-    console.info("fetching account in constructor");
-    
-    this.store.dispatch(new account.FetchAccountAction);
+  constructor(private store: Store<fromRoot.State>) {    
+    // this.store.dispatch(new account.FetchAccountAction);
     this.account$ = store.select(fromRoot.getAccount);    
   }
 
   updateAccount(updatedAccount: Account) {
-    console.info("container updateAccout", updatedAccount);
     this.store.dispatch(new account.UpdateAction(updatedAccount));
   }
 

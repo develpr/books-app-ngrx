@@ -14,7 +14,7 @@ export class LoggedInGuard implements CanActivate {
               private store: Store<fromRoot.State>,
               private configService: ConfigurationService) { }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {    
     if (!this.configService.hasAuthToken()) {
       this.store.dispatch(go('/authenticate'));
       return false;

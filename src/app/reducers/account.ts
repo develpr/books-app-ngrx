@@ -1,5 +1,7 @@
+import { createSelector } from 'reselect';
 import * as account from '../actions/account';
 import { Account } from '../models/account';
+import { BookType } from '../models/book-type';
 
 export interface State {
   account: Account,
@@ -7,7 +9,7 @@ export interface State {
   authenticating: boolean,
   loading: boolean,
   loaded: boolean,
-  error: any,
+  error: any
 };
 
 const initialState: State = {
@@ -58,15 +60,14 @@ export function reducer(state = initialState, action: account.Actions): State {
     }
 
     case account.ActionTypes.UPDATE: {
-      let account = action.payload;
-      console.info("update reducer called with", account);
+      let account = action.payload;      
       return {
         account: account,
         loggedIn: account,
         authenticating: false,
         loading: false,
         loaded: true,
-        error:null
+        error:null,
       };
     }
 
@@ -97,6 +98,8 @@ export function reducer(state = initialState, action: account.Actions): State {
 
 
 export const getId = (state: State) => state.account.id;
+
+export const getLoaded = (state: State) => state.loaded;
 
 export const getName = (state: State) => state.account.firstname;
 

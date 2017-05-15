@@ -106,6 +106,8 @@ export const getAccount = createSelector(getAccountState, fromAccount.getAccount
 
 export const getAccountName = createSelector(getAccountState, fromAccount.getName);
 
+export const getAccountLoaded = createSelector(getAccountState, fromAccount.getLoaded);
+
 export const getAuthenticating = createSelector(getAccountState, fromAccount.getAuthenticating);
 
 export const getError = createSelector(getAccountState, fromAccount.getError);

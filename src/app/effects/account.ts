@@ -64,8 +64,7 @@ export class AccountEffects {
     .switchMap(credentials => {
       return this.accountService.login(credentials)
         .concatMap(
-        accountResult => {
-          console.info("doing this thing...");
+        accountResult => {          
           return [            
             new account.CompleteLoginAction(accountResult),            
             new account.FetchAccountAction(),
@@ -114,7 +113,7 @@ export class AccountEffects {
   @Effect()
   updateAccount$: Observable<Action> = this.actions$
     .ofType(account.ActionTypes.UPDATE)
-    .debounceTime(1000)
+    .debounceTime(250)
     .map(toPayload)
     .switchMap(updatedAccount => {
       return this.accountService.updateAccount(updatedAccount)
